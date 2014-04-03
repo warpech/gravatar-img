@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>gravatar-img</title>
+  <script src="http://www.polymer-project.org/platform.js"></script>
+  <script src="http://rawgithub.com/satazor/SparkMD5/master/spark-md5.js"></script>
+  <link rel="import" href="gravatar-img.html">
+</head>
+<body>
+
+<h1>Using gravatar-img</h1>
+
+<h2>By <code>email</code> attribute</h2>
+
+<pre>&lt;gravatar-img email="albert.einstein.starcounter@gmail.com"&gt;&lt;/gravatar-img&gt;</pre>
+
+<p>Example:</p>
+
+<gravatar-img email="albert.einstein.starcounter@gmail.com"></gravatar-img>
+
+<h2>By email <code>hash</code> attribute</h2>
+
+<pre>&lt;gravatar-img hash="f018de3ef195fb11de2bd4fbbab124a1"&gt;&lt;/gravatar-img&gt;</pre>
+
+<p>Example:</p>
+
+<gravatar-img hash="f018de3ef195fb11de2bd4fbbab124a1"></gravatar-img>
+
+<h2>Requirements</h2>
+
+Using <code>email</code> attribute requires <a href="https://github.com/satazor/SparkMD5">SparkMD5</a> (it is defined as a Bower dependency).
+
+Requires a browser that implements Template, Shadow DOM, Custom Elements and HTML Imports (shimmed or native).
+
+</body>
+</html>

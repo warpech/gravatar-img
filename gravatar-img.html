@@ -1,0 +1,36 @@
+<script>
+  //gravatar-img.html
+  //v0.1.0
+  //Copyright 2014 Marcin Warpechowski (MIT license)
+  (function (global) {
+    function updateImg(img, hash) {
+      img.setAttribute("src", "//www.gravatar.com/avatar/" + (hash || ""));
+    }
+
+    var GravatarImgElementPrototype = Object.create(HTMLElement.prototype);
+    GravatarImgElementPrototype.attributeChangedCallback = function (attributeName, oldVal, newVal) {
+      if (attributeName == "email") {
+        updateImg(this.shadowRoot.querySelector('img'), SparkMD5.hash(newVal));
+      }
+      else if (attributeName == "hash") {
+        updateImg(this.shadowRoot.querySelector('img'), newVal);
+      }
+    };
+    GravatarImgElementPrototype.createdCallback = function () {
+      var img = document.createElement("IMG");
+      var email = this.getAttribute("email");
+      if (email) {
+        updateImg(img, SparkMD5.hash(email));
+      }
+      else {
+        var hash = this.getAttribute("hash");
+        updateImg(img, hash);
+      }
+      this.createShadowRoot().appendChild(img);
+    };
+
+    global.GravatarImgElement = document.registerElement('gravatar-img', {
+      prototype: GravatarImgElementPrototype
+    });
+  })(window)
+</script>
