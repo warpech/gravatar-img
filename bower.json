@@ -4,5 +4,8 @@
   "main": ["gravatar-img.html"],
   "dependencies": {
     "spark-md5": "~0.0.5"
-  }
+  },
+  "keywords": [
+    "web-components"
+  ]
 }
