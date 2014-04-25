@@ -8,15 +8,15 @@
       var height = host.offsetHeight;
       var desiredSize = Math.max(width, height);
       if (!(desiredSize > 0)) {
-        desiredSize = 80;
-        img.style.minWidth = "80px";
-        img.style.minHeight = "80px";
+        desiredSize = 16;
+        img.style.minWidth = "16px";
+        img.style.minHeight = "16px";
       }
       if (!(width > 0)) {
-        img.style.minWidth = "80px";
+        img.style.minWidth = "16px";
       }
       if (!(height > 0)) {
-        img.style.minHeight = "80px";
+        img.style.minHeight = "16px";
       }
       img.style.backgroundImage = "url(//www.gravatar.com/avatar/" + (hash || "") + "?s=" + desiredSize + ")";
     }
@@ -41,14 +41,19 @@
       img.style.backgroundPosition = "center center";
       img.style.backgroundRepeat = "no-repeat";
       img.style.backgroundSize = "cover";
-      var email = this.getAttribute("email");
-      if (email) {
-        updateImg(this, img, SparkMD5.hash(email));
-      }
-      else {
-        var hash = this.getAttribute("hash");
-        updateImg(this, img, hash);
-      }
+
+      var that = this;
+      window.requestAnimationFrame(function() {
+        var email = that.getAttribute("email");
+        if (email) {
+          updateImg(that, img, SparkMD5.hash(email));
+        }
+        else {
+          var hash = that.getAttribute("hash");
+          updateImg(that, img, hash);
+        }
+      });
+
       this.createShadowRoot().appendChild(img);
     };
 
