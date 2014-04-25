@@ -3,28 +3,51 @@
   //v0.1.0
   //Copyright 2014 Marcin Warpechowski (MIT license)
   (function (global) {
-    function updateImg(img, hash) {
-      img.setAttribute("src", "//www.gravatar.com/avatar/" + (hash || ""));
+    function updateImg(host, img, hash) {
+      var width = host.offsetWidth;
+      var height = host.offsetHeight;
+      var desiredSize = Math.max(width, height);
+      if (!(desiredSize > 0)) {
+        desiredSize = 80;
+        img.style.minWidth = "80px";
+        img.style.minHeight = "80px";
+      }
+      if (!(width > 0)) {
+        img.style.minWidth = "80px";
+      }
+      if (!(height > 0)) {
+        img.style.minHeight = "80px";
+      }
+      img.style.backgroundImage = "url(//www.gravatar.com/avatar/" + (hash || "") + "?s=" + desiredSize + ")";
     }
 
     var GravatarImgElementPrototype = Object.create(HTMLElement.prototype);
     GravatarImgElementPrototype.attributeChangedCallback = function (attributeName, oldVal, newVal) {
+      if (!this.shadowRoot) {
+        return;
+      }
       if (attributeName == "email") {
-        updateImg(this.shadowRoot.querySelector('img'), SparkMD5.hash(newVal));
+        updateImg(this, this.shadowRoot.querySelector('div'), SparkMD5.hash(newVal));
       }
       else if (attributeName == "hash") {
-        updateImg(this.shadowRoot.querySelector('img'), newVal);
+        updateImg(this, this.shadowRoot.querySelector('div'), newVal);
       }
     };
-    GravatarImgElementPrototype.createdCallback = function () {
-      var img = document.createElement("IMG");
+    GravatarImgElementPrototype.attachedCallback = function () {
+      var img = document.createElement("DIV");
+      this.style.display = "inline-flex";
+      img.style.display = "inline-block";
+      img.style.flex = "1 1 auto";
+      img.style.backgroundPosition = "center center";
+      img.style.backgroundRepeat = "no-repeat";
+      img.style.backgroundSize = "cover";
       var email = this.getAttribute("email");
       if (email) {
-        updateImg(img, SparkMD5.hash(email));
+        updateImg(this, img, SparkMD5.hash(email));
       }
       else {
         var hash = this.getAttribute("hash");
-        updateImg(img, hash);
+        updateImg(this, img, hash);
       }
       this.createShadowRoot().appendChild(img);
     };
