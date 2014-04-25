@@ -14,6 +14,7 @@ Custom Element that displays a Gravatar image for an email or hash. Does not req
 #### By email `hash` attribute
 
 ```html
+<script src="../spark-md5/spark-md5.js"></script>
 <gravatar-img hash="f018de3ef195fb11de2bd4fbbab124a1"></gravatar-img>
 ```
 
