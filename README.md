@@ -20,7 +20,7 @@ Custom Element that displays a Gravatar image for an email or a hash. Does not r
 
 ### Requirements
 
-Using `email` attribute requires [SparkMD5](https://github.com/satazor/SparkMD5">SparkMD5) (it is defined as a Bower dependency).
+Using `email` attribute requires [SparkMD5](https://github.com/satazor/SparkMD5) (it is defined as a Bower dependency).
 
 Requires a browser that implements Template, Shadow DOM, Custom Elements and HTML Imports (shimmed or native).
 
