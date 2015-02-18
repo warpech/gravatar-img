@@ -35,7 +35,8 @@
     };
     GravatarImgElementPrototype.attachedCallback = function () {
       var img = document.createElement("DIV");
-      this.style.display = "inline-flex";
+      var style = document.createElement("STYLE");
+      style.innerText = ":host{display: inline-flex;}";
       img.style.display = "inline-block";
       img.style.flex = "1 1 auto";
       img.style.backgroundPosition = "center center";
@@ -53,8 +54,9 @@
           updateImg(that, img, hash);
         }
       });
-
-      this.createShadowRoot().appendChild(img);
+      var shadowRoot = this.createShadowRoot();
+      shadowRoot.appendChild(style);
+      shadowRoot.appendChild(img);
     };
 
     global.GravatarImgElement = document.registerElement('gravatar-img', {
